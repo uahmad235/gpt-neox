@@ -27,6 +27,6 @@ pip install Cython \
     && pip install fastapi==0.72.0 \
     && pip install uvicorn==0.16.0
 
-python /root/gpt-neox/megatron/fused_kernels/setup.py install
+python gpt-neox/megatron/fused_kernels/setup.py install
 
 (cd gpt-neox && python app.py)
