@@ -301,6 +301,35 @@ We support three types of generation from a pretrained model:
 
 All three types of text generation can be launched via `python ./deepy.py generate.py -d configs small.yml local_setup.yml text_generation.yml` with the appropriate values set in `configs/text_generation.yml`.
 
+# Deployment on Vast.ai
+
+Preferred Machine on vast ai: `2X RTX3090` with minimum 200GB storage
+If you want to use more GPUs inference e.g., you need to update settings in the `config/20B.yml` for variable `"pipe-parallel-size": 1` to 2.
+## Method 1:
+
+1. On `vast.ai` create instance section, select `pytorch/pytorch` as base image and use `1.12.0-cuda11.3-cudnn8-devel` tag for container image. 
+2. Expose a port using this flag `-p 8085:8085`. Port could be anything but it has to match with the `app.py` server config at the last line.
+3. Select **Run interactive shell server, SSH.** as launch mode and select the **Use direct SSH connection** checkbox below.
+4. Copy deployment script from `deployment_script.sh` and paste into **On-start script** and save these settings.
+5. Rent a machine and wait for the script to complete environment setup. It takes between half to one-hour depending on the bandwidth of the vast ai instance.
+6. The logs for the setup script can be seen inside the container at location `/workspace/onstart.log`. `tail` command can he used to view the latest logs.
+
+## Method 2:
+
+Follow the same steps from 1 to 3 from **Method 1 above**
+
+1. Instead of copy-pasting the `deployment_script.sh`, create container with the settings selected and empty values at **On-start script**
+2. `ssh` into the vast ai instance and create a file called `deployment_script.sh` anywhere inside the container using commmand `touch deployment_script.sh` . 
+3. Change permissions of script using command `chmod +x deployment_script.sh` and run it using command `bash deployment_script.sh`
+
+# Inference on Vast.ai
+Use a `POST` request with following payload structure to generate text from vast ai
+```
+{
+	"prompts": ["This is first prompt.", "This is Second prompt."]
+}
+```
+
 # Evaluation
 
 GPT-NeoX supports evaluation on downstream tasks through the [language model evaluation harness](https://github.com/EleutherAI/lm-evaluation-harness).
