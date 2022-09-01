@@ -2,7 +2,7 @@
 [<img src="https://raw.githubusercontent.com/wandb/assets/main/wandb-github-badge-28.svg" alt="Weights & Biases monitoring" height=20>](https://wandb.ai/eleutherai/neox)
 
 # GPT-NeoX 
-## (with extended guidelines on how to deploy the model on Vast.ai)
+## (with extended guidelines on how to deploy GPT-NEOX on Vast.ai)
 
 This repository records [EleutherAI](https://www.eleuther.ai)'s work-in-progress for training large-scale language models on GPUs. Our current framework is based on NVIDIA's [Megatron Language Model](https://github.com/NVIDIA/Megatron-LM) and has been augmented with techniques from [DeepSpeed](https://www.deepspeed.ai) as well as some novel optimizations.
 
